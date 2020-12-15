@@ -1,0 +1,9 @@
+// BORDER RADIUS
+@mixin border-radius($radius: 5px) {
+   border-radius: $radius;
+}
+
+/* BOX SIZING */
+%box-sizing {
+	box-sizing: border-box;
+}

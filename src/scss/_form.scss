@@ -1,0 +1,104 @@
+@import './mixins';
+
+.taxCalculator { 
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    @extend %box-sizing;
+}
+
+.results, 
+.formQuestions { 
+    width: 50%;
+    padding: 20px;
+    float: left;
+    @extend %box-sizing;
+}
+
+.results { 
+    display: none;
+    background: #f1f1f1; 
+}
+
+.question {
+	margin: 20px 0;
+	clear: both;
+	label { 
+		display: block; 
+		width: 50%;
+    	float: left;
+    }
+
+	input { 
+		padding: 10px;
+		@include border-radius;
+		border: 1px solid #d9d9d9;
+		display: block;
+		margin-top: 5px;
+		width: 50%;
+		height: 20px;
+		@extend %box-sizing;
+		&[type=radio] { position: absolute; left: -9999px; }
+	}
+}
+
+.custom-checkbox {
+  	position: relative;
+  	display: inline-block;
+	width: calc(50% - 10px);
+	@extend %box-sizing;
+    margin-top: 10px;
+    
+	&.first { margin-right: 20px; }
+	> input {
+  		position: absolute; left: 0; top: 0;
+  		outline: none;
+  		border: none;
+    }
+    
+	// DEFAULT STYLES
+	> .box {
+		background-color: #ffffff;
+		@extend %box-sizing;
+		display: inline-block;
+        height: 50px;
+        line-height: 50px;
+		text-align: center;
+		width: 100%;
+		border: 1px solid #d9d9d9;
+		@include border-radius;
+		cursor: pointer;
+		margin-bottom: 20px;
+		position: relative;
+	}
+}
+
+/* CHECKED STYLES */
+.custom-checkbox > input:checked ~ .box,
+/*IE8*/.custom-checkbox.checked > .box{
+	background: #d9d9d9;
+}
+
+.btn { 
+	background: #aacf18; 
+	text-align: center;
+	width: 100%; 
+	display: inline-block; 
+	cursor: pointer;
+	@include border-radius;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	border: 0;
+	outline: 0;
+	&:hover { background: #333; }
+}
+
+.errorMessage { 
+	color: #e43c3c; 
+	font-weight: bold; 
+	display: none;
+	margin: -10px 0 10px;
+	&.show { display: block; }
+}
