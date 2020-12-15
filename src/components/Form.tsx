@@ -8,7 +8,7 @@ export interface FormProps {}
 const Form: React.SFC<FormProps> = () => {
   const [value, setValue] = React.useState("" as any);
   const [ageChecked, setAgeChecked] = React.useState(false);
-  const [taxYear, setTaxYear] = React.useState('' as any);
+  const [taxYear, setTaxYear] = React.useState('19/20');
   
   const calculateTax = (event: any) => {
     event.preventDefault();
@@ -20,7 +20,12 @@ const Form: React.SFC<FormProps> = () => {
 
     // monthly take home pay formatting
     let takeHomeMonthly = (takeHomeYear / 12).toFixed(2);
+    console.log(taxYear);
   };
+
+  const handleChange = (event:any) => {
+    setTaxYear(event.target.value);
+  }
 
   return (
     <div className="taxCalculator">
@@ -41,7 +46,7 @@ const Form: React.SFC<FormProps> = () => {
         </div>
         <Checkbox text="Are you over 65 years old?" id="over65" checked={ageChecked}
           onChange={(e) => setAgeChecked(!ageChecked)}/>
-        <DropDown label="taxYear" onChange={event => setTaxYear(event.target.value)}/>
+        <DropDown label="TaxYear" onChange={handleChange} value={taxYear}/>
         <button id="submitTax" className="btn" onClick={calculateTax}>
           Calculate your tax
         </button>

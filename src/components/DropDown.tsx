@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 export interface DropDownProps {
-    label: string; onChange: (event: any) => void;
+    label: string;
+    onChange: (event: any) => void;
+    value: any;
 }
  
-const DropDown: React.SFC<DropDownProps> = ({label, onChange}: DropDownProps) => {
+const DropDown: React.SFC<DropDownProps> = ({label, onChange, value}: DropDownProps) => {
     return ( 
         <div className="tax-year">
             <label htmlFor="taxYear">{label}</label>
-            <select id="taxYear" onChange={onChange}>
-                <option>Select Value</option>
+            <select value={value} id="taxYear" onChange={onChange}>
                 <option value="19/20">
                     2019/20
                 </option>
