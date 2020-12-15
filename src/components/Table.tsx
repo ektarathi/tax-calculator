@@ -1,40 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
 import TableData from './TableData';
-export interface TableProps {}
+export interface TableProps {
+  salary: any;
+  taxableIncome: any;
+  incomeTax: number;
+  nationalIns: any;
+  takeHome: any; 
+}
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  yearly: number,
+  monthly: number,
+  weekly: number,
 ) {
-  return { name, calories, fat, carbs, protein };
+  return { name, yearly, monthly, weekly };
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-const Table: React.SFC<TableProps> = () => {
+const Table: React.SFC<TableProps> = ({salary, taxableIncome, incomeTax, nationalIns, takeHome}: TableProps) => {
+  console.log(salary, taxableIncome, incomeTax);
+  
+  const rows = [
+    createData("Gross Income", salary, salary/12, salary/52),
+    createData("Taxable Income", taxableIncome, taxableIncome/12, taxableIncome/52),
+    createData("Tax Paid", incomeTax, incomeTax/12, incomeTax/52),
+    createData("National Insurance", nationalIns, nationalIns/12, nationalIns/52),
+    createData("Take Home", takeHome, takeHome/12, takeHome/52),
+  ];
   return (
     <table>
       <thead>
         <tr>
-          <td>Dessert (100g serving)</td>
-          <td align="right">Calories</td>
-          <td align="right">Fat&nbsp;(g)</td>
-          <td align="right">Carbs&nbsp;(g)</td>
-          <td align="right">Protein&nbsp;(g)</td>
+          <td></td>
+          <td align="right">Yearly</td>
+          <td align="right">Monthly</td>
+          <td align="right">Weekly</td>
         </tr>
       </thead>
       <tbody>
-          {rows.map((row) => {
-              return <TableData data={row} key={row.name}/>
+          {rows.map((row, index) => {
+              return <TableData data={row} key={index}/>
           })}
       </tbody>
     </table>

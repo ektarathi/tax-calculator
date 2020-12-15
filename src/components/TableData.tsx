@@ -1,23 +1,22 @@
 import React from "react";
 export interface TableDataProps {
   data: {
-    name: string;
-    calories: number;
-    fat: number;
-    carbs: number;
-    protein: number;
+    name: string,
+    yearly: number,
+    monthly: number,
+    weekly: number,
   };
 }
 
 const TableData: React.SFC<TableDataProps> = ({ data }: TableDataProps) => {
+  
   return (
     <>
       <tr>
         <td>{data.name}</td>
-        <td>{data.calories}</td>
-        <td>{data.fat}</td>
-        <td>{data.carbs}</td>
-        <td>{data.protein}</td>
+        <td>{data.yearly}</td>
+        <td>{(data.monthly).toFixed(2)}</td>
+        <td>{(data.weekly).toFixed(2)}</td>
       </tr>
     </>
   );

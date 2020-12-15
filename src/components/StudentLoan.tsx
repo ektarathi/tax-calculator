@@ -10,6 +10,7 @@ const StudentLoan: React.SFC<StudentLoanProps> = ({label, onChange, value}: Stud
         <div className="question">
             <label htmlFor="taxYear">{label}</label>
             <select value={value} id="taxYear" onChange={onChange}>
+                <option>Select loan value</option>
                 <option value="plan1">
                     Repayment Plan 1
                 </option>

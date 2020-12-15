@@ -12,18 +12,32 @@ const Form: React.SFC<FormProps> = () => {
   const [loanSelect, setLoanSelect] = React.useState('');
   const [ageChecked, setAgeChecked] = React.useState(false);
   const [taxYear, setTaxYear] = React.useState('19/20');
-  
+  const [displayTable, setDisplayTable] = React.useState(false);
+  const [taxableSalary, setTaxableSalary] = React.useState('' as any);
+  const [incomeTax, setIncomeTax] = React.useState('' as any);
+  const [nationalInsurance, setNationalInsurance] = React.useState('' as any);
+  const [takeHomeSalary, setTakeHomeSalary] = React.useState('' as any);
+
   const calculateTax = (event: any) => {
     event.preventDefault();
-    let incomeTax = calculateIncomeTax(value);
-    let nationalInsurance: any= calculateNationalInsurance(value, ageChecked, taxYear);
+    if(value !== '') {
+      setDisplayTable(true);
+    }
+    // calculating Taxable Salary
+    let salary = value - 12500;
+    setTaxableSalary(salary);
+
+    // Calculating Tax Paid
+    let tax = calculateIncomeTax(value);
+    setIncomeTax(tax);
+
+    //Calculating National Insurance
+    let ni:any= calculateNationalInsurance(value, ageChecked, taxYear);
+    setNationalInsurance(ni);
 
     // take home pay yearly
-    let takeHomeYear: any = (value - incomeTax - nationalInsurance).toFixed(2);
-    console.log(takeHomeYear);
-    // monthly take home pay formatting
-    let takeHomeMonthly = (takeHomeYear / 12).toFixed(2);
-    console.log(taxYear);
+    let takeHomeYear = (value - tax - ni).toFixed(2);
+    setTakeHomeSalary(takeHomeYear);
   };
 
   const handleChange = (event:any) => {
@@ -60,7 +74,7 @@ const Form: React.SFC<FormProps> = () => {
           Calculate your tax
         </button>
       </form>
-      <Table/>
+      {displayTable ? <Table salary={parseInt(value)} taxableIncome={taxableSalary} incomeTax={incomeTax} nationalIns={nationalInsurance} takeHome={takeHomeSalary}/>: ''}
     </div>
   );
 };
