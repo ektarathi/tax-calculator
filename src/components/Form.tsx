@@ -39,6 +39,7 @@ const Form: React.SFC<FormProps> = () => {
             name="yearlySalary"
             type="number"
             onChange={(event) => setValue(event.target.value)}
+            className="form-input"
           />
           <p>
             <small>This calculator assumes your tax code is: 1250L</small>

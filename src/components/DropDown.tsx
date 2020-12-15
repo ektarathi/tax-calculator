@@ -7,7 +7,7 @@ export interface DropDownProps {
  
 const DropDown: React.SFC<DropDownProps> = ({label, onChange, value}: DropDownProps) => {
     return ( 
-        <div className="tax-year">
+        <div className="question">
             <label htmlFor="taxYear">{label}</label>
             <select value={value} id="taxYear" onChange={onChange}>
                 <option value="19/20">

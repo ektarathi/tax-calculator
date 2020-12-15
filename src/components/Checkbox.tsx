@@ -15,6 +15,7 @@ const Checkbox: React.SFC<CheckboxProps> = ({ id, text, onChange, checked }: Che
         id={id}
         checked={checked}
         onChange={onChange}
+        className="checkbox"
       />
     </div>
   );
