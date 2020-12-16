@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dispatch } from "react";
-import Checkbox from "./Checkbox";
-import DropDown from "./DropDown";
+import Checkbox from "./shared/Checkbox";
+import DropDown from "./shared/DropDown";
 import LoanDropdown from './shared/LoanDropdown';
 import { calculateIncomeTax } from "../utiities/IncomeTax";
 import { calculateNationalInsurance } from "../utiities/NI";
