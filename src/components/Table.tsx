@@ -32,10 +32,10 @@ const Table: React.SFC<TableProps> = ({salary, taxableIncome, incomeTax, nationa
     <table>
       <thead>
         <tr>
-          <td></td>
-          <td align="right">Yearly</td>
-          <td align="right">Monthly</td>
-          <td align="right">Weekly</td>
+          <th></th>
+          <th align="right">Yearly</th>
+          <th align="right">Monthly</th>
+          <th align="right">Weekly</th>
         </tr>
       </thead>
       <tbody>

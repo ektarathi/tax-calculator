@@ -1,29 +1,29 @@
 import React from "react";
 import Checkbox from "./Checkbox";
-import DropDown from './DropDown';
-import StudentLoan from './StudentLoan';
-import { calculateIncomeTax } from '../utiities/IncomeTax';
-import { calculateNationalInsurance } from '../utiities/NI';
-import { studentLoan } from '../utiities/StudentLoan';
+import DropDown from "./DropDown";
+import StudentLoan from "./StudentLoan";
+import { calculateIncomeTax } from "../utiities/IncomeTax";
+import { calculateNationalInsurance } from "../utiities/NI";
+import { studentLoan } from "../utiities/StudentLoan";
 
-import Table from './Table';
+import Table from "./Table";
 export interface FormProps {}
 
 const Form: React.SFC<FormProps> = () => {
   const [value, setValue] = React.useState("" as any);
-  const [loanSelect, setLoanSelect] = React.useState('');
+  const [loanSelect, setLoanSelect] = React.useState("");
   const [ageChecked, setAgeChecked] = React.useState(false);
-  const [taxYear, setTaxYear] = React.useState('19/20');
+  const [taxYear, setTaxYear] = React.useState("19/20");
   const [displayTable, setDisplayTable] = React.useState(false);
-  const [taxableSalary, setTaxableSalary] = React.useState('' as any);
-  const [incomeTax, setIncomeTax] = React.useState('' as any);
-  const [nationalInsurance, setNationalInsurance] = React.useState('' as any);
-  const [takeHomeSalary, setTakeHomeSalary] = React.useState('' as any);
-  const [loan, setLoan] = React.useState('' as any);
+  const [taxableSalary, setTaxableSalary] = React.useState("" as any);
+  const [incomeTax, setIncomeTax] = React.useState("" as any);
+  const [nationalInsurance, setNationalInsurance] = React.useState("" as any);
+  const [takeHomeSalary, setTakeHomeSalary] = React.useState("" as any);
+  const [loan, setLoan] = React.useState("" as any);
 
   const calculateTax = (event: any) => {
     event.preventDefault();
-    if(value !== '') {
+    if (value !== "") {
       setDisplayTable(true);
     }
     // calculating Taxable Salary
@@ -35,31 +35,31 @@ const Form: React.SFC<FormProps> = () => {
     setIncomeTax(tax);
 
     //Calculating National Insurance
-    let ni:any= calculateNationalInsurance(value, ageChecked, taxYear);
+    let ni: any = calculateNationalInsurance(value, ageChecked, taxYear);
     setNationalInsurance(ni);
 
     // Calculate Student Loan
     let stLoan = studentLoan(value, loanSelect, taxYear);
     setLoan(stLoan);
 
-    if(stLoan !== undefined) {
-        // take home pay yearly
+    if (stLoan !== undefined) {
+      // take home pay yearly
       let takeHomeYear = (value - tax - ni - stLoan).toFixed(2);
       setTakeHomeSalary(takeHomeYear);
     } else {
-        // take home pay yearly
+      // take home pay yearly
       let takeHomeYear = (value - tax - ni).toFixed(2);
       setTakeHomeSalary(takeHomeYear);
-    }  
+    }
   };
 
-  const handleChange = (event:any) => {
+  const handleChange = (event: any) => {
     setTaxYear(event.target.value);
-  }
+  };
 
   const selectLoanValue = (event: any) => {
     setLoanSelect(event.target.value);
-  }
+  };
 
   return (
     <div className="taxCalculator">
@@ -79,15 +79,34 @@ const Form: React.SFC<FormProps> = () => {
             <small>This calculator assumes your tax code is: 1250L</small>
           </p>
         </div>
-        <StudentLoan label="Student Loan" onChange={selectLoanValue} value={loanSelect}/>
-        <Checkbox text="Are you over 65 years old?" id="over65" checked={ageChecked}
-          onChange={(e) => setAgeChecked(!ageChecked)}/>
-        <DropDown label="TaxYear" onChange={handleChange} value={taxYear}/>
+        <StudentLoan
+          label="Student Loan"
+          onChange={selectLoanValue}
+          value={loanSelect}
+        />
+        <Checkbox
+          text="Are you over 65 years old?"
+          id="over65"
+          checked={ageChecked}
+          onChange={(e) => setAgeChecked(!ageChecked)}
+        />
+        <DropDown label="TaxYear" onChange={handleChange} value={taxYear} />
         <button id="submitTax" className="btn" onClick={calculateTax}>
           Calculate your tax
         </button>
       </form>
-      {displayTable ? <Table salary={parseInt(value)} taxableIncome={taxableSalary} incomeTax={incomeTax} nationalIns={nationalInsurance} takeHome={takeHomeSalary} studentLoan={loan}/>: ''}
+      {displayTable ? (
+        <Table
+          salary={parseInt(value)}
+          taxableIncome={taxableSalary}
+          incomeTax={incomeTax}
+          nationalIns={nationalInsurance}
+          takeHome={takeHomeSalary}
+          studentLoan={loan}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
