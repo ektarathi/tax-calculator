@@ -1,7 +1,6 @@
 import React from "react";
 import Checkbox from "./Checkbox";
-import TaxYear from "./TaxYear";
-import StudentLoan from "./StudentLoan";
+import DropDown from "./DropDown";
 import FormDetails from './FormDetails';
 import { calculateIncomeTax } from "../utiities/IncomeTax";
 import { calculateNationalInsurance } from "../utiities/NI";
@@ -12,9 +11,9 @@ export interface FormProps {}
 
 const Form: React.SFC<FormProps> = () => {
   const [value, setValue] = React.useState("" as any);
-  const [loanSelect, setLoanSelect] = React.useState("");
+  const [loanSelect, setLoanSelect] = React.useState('Repayment Plan 1');
   const [ageChecked, setAgeChecked] = React.useState(false);
-  const [taxYear, setTaxYear] = React.useState("19/20");
+  const [taxYear, setTaxYear] = React.useState("2019/20");
   const [displayTable, setDisplayTable] = React.useState(false);
   const [taxableSalary, setTaxableSalary] = React.useState("" as any);
   const [incomeTax, setIncomeTax] = React.useState("" as any);
@@ -25,6 +24,8 @@ const Form: React.SFC<FormProps> = () => {
 
   const calculateTax = (event: any) => {
     event.preventDefault();
+
+    // Displaying the error messages
     if (value < 12500) {
       setDisplayTable(false);
       setError(true);
@@ -33,10 +34,10 @@ const Form: React.SFC<FormProps> = () => {
     }
 
     if (loanSelect === "Repayment Plan 2") {
-      if (value < 26575 && taxYear === "20/21") {
+      if (value < 26575 && taxYear === "2020/21") {
         setDisplayTable(false);
         setError(true);
-      } else if (value < 25725 && taxYear === "19/20") {
+      } else if (value < 25725 && taxYear === "2019/20") {
         setDisplayTable(false);
         setError(true);
       } else {
@@ -88,10 +89,13 @@ const Form: React.SFC<FormProps> = () => {
       <form className="formQuestions">
         <h2>Enter your details</h2>
         <FormDetails error={error} onChange={(event) => setValue(event.target.value)} value={value}/>
-        <StudentLoan
+        <DropDown
           label="Student Loan"
+          id="loanPlan"
           onChange={selectLoanValue}
-          loanSelect={loanSelect}
+          value={loanSelect}
+          option1="Repayment Plan 1"
+          option2="Repayment Plan 2"
         />
         <Checkbox
           text="Are you over 65 years old?"
@@ -99,7 +103,7 @@ const Form: React.SFC<FormProps> = () => {
           checked={ageChecked}
           onChange={(e) => setAgeChecked(!ageChecked)}
         />
-        <TaxYear label="TaxYear" onChange={handleChange} value={taxYear} />
+        <DropDown label="TaxYear" id="taxYear" onChange={handleChange} value={taxYear} option1="2019/20" option2="2020/21"/>
         <button id="submitTax" className="btn" onClick={calculateTax}>
           Calculate your tax
         </button>

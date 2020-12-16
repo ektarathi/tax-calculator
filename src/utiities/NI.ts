@@ -1,7 +1,7 @@
 export const calculateNationalInsurance = (value: any, ageValue: any, taxYear: any) => {
   let natInsurance, natInsureThresh;
   // national insurance threshold
-  if(taxYear === '19/20') {
+  if(taxYear === '2019/20') {
     natInsureThresh = 719;
   } else {
     natInsureThresh = 792;

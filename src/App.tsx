@@ -1,13 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import './scss/base.scss';
-import Form from './components/Form';
+import TaxForm from './components/TaxForm';
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <TaxForm />
     </div>
   );
 }
