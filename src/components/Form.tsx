@@ -20,12 +20,27 @@ const Form: React.SFC<FormProps> = () => {
   const [nationalInsurance, setNationalInsurance] = React.useState("" as any);
   const [takeHomeSalary, setTakeHomeSalary] = React.useState("" as any);
   const [loan, setLoan] = React.useState("" as any);
+  const [error, setError] = React.useState(false);
 
   const calculateTax = (event: any) => {
     event.preventDefault();
     if (value !== "") {
       setDisplayTable(true);
     }
+
+    if (loanSelect === "Repayment Plan 2") {
+      if (value < 26575 && taxYear === "20/21") {
+        setDisplayTable(false);
+        setError(true);
+      } else if (value < 25725 && taxYear === "19/20") {
+        setDisplayTable(false);
+        setError(true);
+      } else {
+        setDisplayTable(true);
+        setError(false);
+      }
+    }
+
     // calculating Taxable Salary
     let salary = value - 12500;
     setTaxableSalary(salary);
@@ -40,7 +55,7 @@ const Form: React.SFC<FormProps> = () => {
 
     // Calculate Student Loan
     let stLoan = studentLoan(value, loanSelect, taxYear);
-    console.log(stLoan)
+    console.log(stLoan);
     setLoan(stLoan);
 
     if (stLoan !== undefined) {
@@ -68,7 +83,6 @@ const Form: React.SFC<FormProps> = () => {
       <form className="formQuestions">
         <h2>Enter your details</h2>
         <div className="question">
-          <label htmlFor="yearlySalary">Yearly Salary</label>
           <input
             id="yearlySalary"
             name="yearlySalary"
@@ -76,6 +90,15 @@ const Form: React.SFC<FormProps> = () => {
             onChange={(event) => setValue(event.target.value)}
             className="form-input"
           />
+          <select id="salary">
+            <option value="yearly">Year</option>
+            <option value="monthly">Month - (12 Months)</option>
+          </select>
+          {error ? (
+            <p className="errorMessage">The selected salary of {value} is less than the threshold value</p>
+          ) : (
+            ""
+          )}
           <p>
             <small>This calculator assumes your tax code is: 1250L</small>
           </p>
@@ -84,6 +107,8 @@ const Form: React.SFC<FormProps> = () => {
           label="Student Loan"
           onChange={selectLoanValue}
           value={loanSelect}
+          option1="Repayment Plan 1"
+          option2="Repayment Plan 2"
         />
         <Checkbox
           text="Are you over 65 years old?"

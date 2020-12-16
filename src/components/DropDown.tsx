@@ -9,7 +9,7 @@ const DropDown: React.SFC<DropDownProps> = ({label, onChange, value}: DropDownPr
     return ( 
         <div className="question">
             <label htmlFor="taxYear">{label}</label>
-            <select value={value} id="taxYear" onChange={onChange}>
+            <select className="taxYear" value={value} id="taxYear" onChange={onChange}>
                 <option value="19/20">
                     2019/20
                 </option>

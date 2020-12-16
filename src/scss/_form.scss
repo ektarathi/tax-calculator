@@ -32,18 +32,28 @@
 		.form-input { 
 			padding: 15px;
 			@include border-radius;
-			border: 1px solid #d9d9d9;
-			display: block;
-			margin-top: 5px;
-			width: 50%;
+			border: 1px solid #767676;
+			width: auto;
 			height: 20px;
+			float: left;
 			@extend %box-sizing;
 		}
-	
+		
+		select {
+			height: 20px;
+			padding: 15px;
+			width: 50%;
+		}
+
 		.checkbox {
 			width: 20px;
 			height: 20px;
 			margin-top: 0;
+		}
+
+		.taxYear {
+			padding: 0;
+			width: auto;
 		}
 	}
 }
@@ -71,8 +81,7 @@
 
 .errorMessage { 
 	color: #e43c3c; 
-	font-weight: bold; 
-	display: none;
-	margin: -10px 0 10px;
-	&.show { display: block; }
+	display: block;
+	margin: 5px 0;
+	font-size: 12px;
 }
