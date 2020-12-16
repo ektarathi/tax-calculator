@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 export interface FormDetailsProps {
-    error: boolean; onChange: (event: any) => void; value: any;
+    error: boolean;
+    onChange: (event: any) => void;
+    value: any;
+    handleChange: (event: any) => void;
 }
 
 const FormDetails: React.SFC<FormDetailsProps> = ({
   error,
-  onChange, value
+  onChange,
+  value,
+  handleChange
 }: FormDetailsProps) => {
+
   return (
     <div className="question">
       <input
@@ -16,7 +22,7 @@ const FormDetails: React.SFC<FormDetailsProps> = ({
         onChange={onChange}
         className="form-input"
       />
-      <select id="salary">
+      <select id="salary" onChange={handleChange}>
         <option value="yearly">Year</option>
         <option value="monthly">Month - (12 Months)</option>
       </select>

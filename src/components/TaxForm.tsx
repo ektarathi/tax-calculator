@@ -11,6 +11,7 @@ export interface FormProps {}
 
 const Form: React.SFC<FormProps> = () => {
   const [value, setValue] = React.useState("" as any);
+  const [type, setType] = React.useState('Year');
   const [loanSelect, setLoanSelect] = React.useState('Repayment Plan 1');
   const [ageChecked, setAgeChecked] = React.useState(false);
   const [taxYear, setTaxYear] = React.useState("2019/20");
@@ -24,27 +25,8 @@ const Form: React.SFC<FormProps> = () => {
 
   const calculateTax = (event: any) => {
     event.preventDefault();
-
     // Displaying the error messages
-    if (value < 12500) {
-      setDisplayTable(false);
-      setError(true);
-    } else {
-      setDisplayTable(true);
-    }
-
-    if (loanSelect === "Repayment Plan 2") {
-      if (value < 26575 && taxYear === "2020/21") {
-        setDisplayTable(false);
-        setError(true);
-      } else if (value < 25725 && taxYear === "2019/20") {
-        setDisplayTable(false);
-        setError(true);
-      } else {
-        setDisplayTable(true);
-        setError(false);
-      }
-    }
+    displayErrorMessage();
 
     // calculating Taxable Salary
     let salary = value - 12500;
@@ -74,6 +56,28 @@ const Form: React.SFC<FormProps> = () => {
     }
   };
 
+  const displayErrorMessage = () => {
+    if (value < 12500) {
+      setDisplayTable(false);
+      setError(true);
+    } else {
+      setDisplayTable(true);
+    }
+
+    if (loanSelect === "Repayment Plan 2") {
+      if (value < 26575 && taxYear === "2020/21") {
+        setDisplayTable(false);
+        setError(true);
+      } else if (value < 25725 && taxYear === "2019/20") {
+        setDisplayTable(false);
+        setError(true);
+      } else {
+        setDisplayTable(true);
+        setError(false);
+      }
+    }
+  }
+
   const handleChange = (event: any) => {
     setTaxYear(event.target.value);
   };
@@ -83,12 +87,20 @@ const Form: React.SFC<FormProps> = () => {
     setLoanSelect(event.target.value);
   };
 
+  const getSalaryType = (event: any) => {
+    setType(event.target.value);
+  }
+
+  const getSalary = (event: any) => {
+    setValue(event.target.value);
+  }
+  
   return (
     <div className="taxCalculator">
       <h1>Income Tax Calculator</h1>
       <form className="formQuestions">
         <h2>Enter your details</h2>
-        <FormDetails error={error} onChange={(event) => setValue(event.target.value)} value={value}/>
+        <FormDetails error={error} onChange={getSalary} value={value} handleChange={getSalaryType}/>
         <DropDown
           label="Student Loan"
           id="loanPlan"
