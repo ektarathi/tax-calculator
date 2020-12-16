@@ -40,6 +40,7 @@ const Form: React.SFC<FormProps> = () => {
 
     // Calculate Student Loan
     let stLoan = studentLoan(value, loanSelect, taxYear);
+    console.log(stLoan)
     setLoan(stLoan);
 
     if (stLoan !== undefined) {
