@@ -1,7 +1,8 @@
 import React from "react";
 import Checkbox from "./Checkbox";
-import DropDown from "./DropDown";
+import TaxYear from "./TaxYear";
 import StudentLoan from "./StudentLoan";
+import FormDetails from './FormDetails';
 import { calculateIncomeTax } from "../utiities/IncomeTax";
 import { calculateNationalInsurance } from "../utiities/NI";
 import { studentLoan } from "../utiities/StudentLoan";
@@ -24,7 +25,10 @@ const Form: React.SFC<FormProps> = () => {
 
   const calculateTax = (event: any) => {
     event.preventDefault();
-    if (value !== "") {
+    if (value < 12500) {
+      setDisplayTable(false);
+      setError(true);
+    } else {
       setDisplayTable(true);
     }
 
@@ -74,6 +78,7 @@ const Form: React.SFC<FormProps> = () => {
   };
 
   const selectLoanValue = (event: any) => {
+    console.log(event.target.value);
     setLoanSelect(event.target.value);
   };
 
@@ -82,33 +87,11 @@ const Form: React.SFC<FormProps> = () => {
       <h1>Income Tax Calculator</h1>
       <form className="formQuestions">
         <h2>Enter your details</h2>
-        <div className="question">
-          <input
-            id="yearlySalary"
-            name="yearlySalary"
-            type="number"
-            onChange={(event) => setValue(event.target.value)}
-            className="form-input"
-          />
-          <select id="salary">
-            <option value="yearly">Year</option>
-            <option value="monthly">Month - (12 Months)</option>
-          </select>
-          {error ? (
-            <p className="errorMessage">The selected salary of {value} is less than the threshold value</p>
-          ) : (
-            ""
-          )}
-          <p>
-            <small>This calculator assumes your tax code is: 1250L</small>
-          </p>
-        </div>
+        <FormDetails error={error} onChange={(event) => setValue(event.target.value)} value={value}/>
         <StudentLoan
           label="Student Loan"
           onChange={selectLoanValue}
-          value={loanSelect}
-          option1="Repayment Plan 1"
-          option2="Repayment Plan 2"
+          loanSelect={loanSelect}
         />
         <Checkbox
           text="Are you over 65 years old?"
@@ -116,7 +99,7 @@ const Form: React.SFC<FormProps> = () => {
           checked={ageChecked}
           onChange={(e) => setAgeChecked(!ageChecked)}
         />
-        <DropDown label="TaxYear" onChange={handleChange} value={taxYear} />
+        <TaxYear label="TaxYear" onChange={handleChange} value={taxYear} />
         <button id="submitTax" className="btn" onClick={calculateTax}>
           Calculate your tax
         </button>
