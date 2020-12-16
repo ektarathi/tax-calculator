@@ -4,6 +4,8 @@ import DropDown from './DropDown';
 import StudentLoan from './StudentLoan';
 import { calculateIncomeTax } from '../utiities/IncomeTax';
 import { calculateNationalInsurance } from '../utiities/NI';
+import { studentLoan } from '../utiities/StudentLoan';
+
 import Table from './Table';
 export interface FormProps {}
 
@@ -17,6 +19,7 @@ const Form: React.SFC<FormProps> = () => {
   const [incomeTax, setIncomeTax] = React.useState('' as any);
   const [nationalInsurance, setNationalInsurance] = React.useState('' as any);
   const [takeHomeSalary, setTakeHomeSalary] = React.useState('' as any);
+  const [loan, setLoan] = React.useState('' as any);
 
   const calculateTax = (event: any) => {
     event.preventDefault();
@@ -35,9 +38,19 @@ const Form: React.SFC<FormProps> = () => {
     let ni:any= calculateNationalInsurance(value, ageChecked, taxYear);
     setNationalInsurance(ni);
 
-    // take home pay yearly
-    let takeHomeYear = (value - tax - ni).toFixed(2);
-    setTakeHomeSalary(takeHomeYear);
+    // Calculate Student Loan
+    let stLoan = studentLoan(value, loanSelect, taxYear);
+    setLoan(stLoan);
+
+    if(stLoan !== undefined) {
+        // take home pay yearly
+      let takeHomeYear = (value - tax - ni - stLoan).toFixed(2);
+      setTakeHomeSalary(takeHomeYear);
+    } else {
+        // take home pay yearly
+      let takeHomeYear = (value - tax - ni).toFixed(2);
+      setTakeHomeSalary(takeHomeYear);
+    }  
   };
 
   const handleChange = (event:any) => {
@@ -74,7 +87,7 @@ const Form: React.SFC<FormProps> = () => {
           Calculate your tax
         </button>
       </form>
-      {displayTable ? <Table salary={parseInt(value)} taxableIncome={taxableSalary} incomeTax={incomeTax} nationalIns={nationalInsurance} takeHome={takeHomeSalary}/>: ''}
+      {displayTable ? <Table salary={parseInt(value)} taxableIncome={taxableSalary} incomeTax={incomeTax} nationalIns={nationalInsurance} takeHome={takeHomeSalary} studentLoan={loan}/>: ''}
     </div>
   );
 };
