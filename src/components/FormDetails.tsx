@@ -23,6 +23,7 @@ const FormDetails: React.SFC<FormDetailsProps> = ({
         className="form-input"
       />
       <select id="salary" onChange={handleChange}>
+        <option>Select</option>
         <option value="yearly">Year</option>
         <option value="monthly">Month - (12 Months)</option>
       </select>

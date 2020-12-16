@@ -45,9 +45,9 @@ const Table: React.SFC<TableProps> = ({salary, taxableIncome, incomeTax, nationa
       <thead>
         <tr>
           <th></th>
-          <th align="right">Yearly</th>
-          <th align="right">Monthly</th>
-          <th align="right">Weekly</th>
+          <th align="center">Yearly</th>
+          <th align="center">Monthly</th>
+          <th align="center">Weekly</th>
         </tr>
       </thead>
       <tbody>
