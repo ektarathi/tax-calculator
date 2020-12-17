@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dispatch } from "react";
 import Checkbox from "./shared/Checkbox";
 import DropDown from "./shared/DropDown";
-import LoanDropdown from './shared/LoanDropdown';
+import LoanDropdown from "./shared/LoanDropdown";
 import { calculateIncomeTax } from "../utiities/IncomeTax";
 import { calculateNationalInsurance } from "../utiities/NI";
 import { studentLoan } from "../utiities/StudentLoan";
@@ -14,6 +14,7 @@ export interface YearlyTaxProps {
   setTakeHomeSalary: Dispatch<any>;
   setLoan: Dispatch<any>;
   setDisplayTable: Dispatch<any>;
+  type: string;
 }
 
 const YearlyTax: React.SFC<YearlyTaxProps> = ({
@@ -24,19 +25,52 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
   setTakeHomeSalary,
   setLoan,
   setDisplayTable,
+  type
 }: YearlyTaxProps) => {
   const [loanSelect, setLoanSelect] = React.useState("");
   const [ageChecked, setAgeChecked] = React.useState(false);
-  const [taxYear, setTaxYear] = React.useState("2019/20");
+  const [taxYear, setTaxYear] = React.useState("2020/21");
   const [error, setError] = React.useState(false);
 
   const calculateTax = (event: any) => {
-    console.log("getting", taxYear, loanSelect);
     event.preventDefault();
     // Displaying the error messages
-    displayErrorMessage();
+    //displayErrorMessage();
+    setDisplayTable(true)
+    let salary;
 
-    // calculating Taxable Salary
+    if(type === 'monthly') {
+        salary = value * 12;
+    } else {
+        salary = value
+    }
+    calculateTaxDetails(salary);
+  };
+
+  const displayErrorMessage = () => {
+    if (value < 12500) {
+      setDisplayTable(false);
+      setError(true);
+    } else {
+      setDisplayTable(true);
+    }
+
+    if (loanSelect === "Repayment Plan 2") {
+      if (value < 26575 && taxYear === "2020/21") {
+        setDisplayTable(false);
+        setError(true);
+      } else if (value < 25725 && taxYear === "2019/20") {
+        setDisplayTable(false);
+        setError(true);
+      } else {
+        setDisplayTable(true);
+        setError(false);
+      }
+    }
+  };
+
+  const calculateTaxDetails = (value: any) => {
+      // calculating Taxable Salary
     let salary = value - 12500;
     setTaxableSalary(salary);
 
@@ -61,33 +95,8 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
       let takeHomeYear = (value - tax - ni).toFixed(2);
       setTakeHomeSalary(takeHomeYear);
     }
-  };
+  }
 
-  const displayErrorMessage = () => {
-    if (value < 12500) {
-      setDisplayTable(false);
-      setError(true);
-    } else {
-      setDisplayTable(true);
-    }
-    if (taxYear === "") {
-      setDisplayTable(false);
-      setError(true);
-    } else {
-      if (loanSelect === "Repayment Plan 2") {
-        if (value < 26575 && taxYear === "2020/21") {
-          setDisplayTable(false);
-          setError(true);
-        } else if (value < 25725 && taxYear === "2019/20") {
-          setDisplayTable(false);
-          setError(true);
-        } else {
-          setDisplayTable(true);
-          setError(false);
-        }
-      }
-    }
-  };
   const handleChange = (event: any) => {
     setTaxYear(event.target.value);
   };
@@ -117,9 +126,9 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
         id="taxYear"
         onChange={handleChange}
         value={taxYear}
-        option1="2019/20"
-        option2="2020/21"
-        error={error}
+        option1="2020/21"
+        option2="2019/20"
+
       />
       <button id="submitTax" className="btn" onClick={calculateTax}>
         Calculate your tax

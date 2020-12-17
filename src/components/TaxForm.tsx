@@ -1,5 +1,5 @@
 import React from "react";
-import YearlyTax from "./YearlyTax";
+import TaxDetails from "./TaxDetails";
 import FormDetails from "./FormDetails";
 
 import Table from "./Table";
@@ -35,8 +35,7 @@ const Form: React.SFC<FormProps> = () => {
           value={value}
           handleChange={getSalaryType}
         />
-        {type === "yearly" ? (
-          <YearlyTax
+        <TaxDetails
             value={value}
             setTaxableSalary={setTaxableSalary}
             setIncomeTax={setIncomeTax}
@@ -44,14 +43,12 @@ const Form: React.SFC<FormProps> = () => {
             setTakeHomeSalary={setTakeHomeSalary}
             setLoan={setLoan}
             setDisplayTable={setDisplayTable}
-          />
-        ) : (
-          ""
-        )}
+            type={type}
+        />
       </form>
       {displayTable ? (
         <Table
-          salary={parseInt(value)}
+          salary={type === 'monthly' ? parseInt(value) * 12: parseInt(value)}
           taxableIncome={taxableSalary}
           incomeTax={incomeTax}
           nationalIns={nationalInsurance}

@@ -6,7 +6,6 @@ export interface DropDownProps {
   value: any;
   option1: string;
   option2: string;
-  error: any;
 }
 
 const DropDown: React.SFC<DropDownProps> = ({
@@ -16,7 +15,6 @@ const DropDown: React.SFC<DropDownProps> = ({
   value,
   option1,
   option2,
-  error,
 }: DropDownProps) => {
   return (
     <div className="question">
@@ -25,7 +23,6 @@ const DropDown: React.SFC<DropDownProps> = ({
         <option value={option1}>{option1}</option>
         <option value={option2}>{option2}</option>
       </select>
-      {error ? <p className="errorMessage">Please select the value</p> : ""}
     </div>
   );
 };

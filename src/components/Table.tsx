@@ -20,7 +20,7 @@ function createData(
 
 const Table: React.SFC<TableProps> = ({salary, taxableIncome, incomeTax, nationalIns, takeHome, studentLoan}: TableProps) => {
   let rows;
-
+console.log('final updated values:', salary, taxableIncome, incomeTax, nationalIns, takeHome);
   if(studentLoan !== undefined) {
     rows = [
       createData("Gross Income", salary, salary/12, salary/52),
