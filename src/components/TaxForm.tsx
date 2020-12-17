@@ -44,6 +44,7 @@ const Form: React.SFC<FormProps> = () => {
             setLoan={setLoan}
             setDisplayTable={setDisplayTable}
             type={type}
+            setError={setError}
         />
       </form>
       {displayTable ? (

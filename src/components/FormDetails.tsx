@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 export interface FormDetailsProps {
     error: boolean;
     onChange: (event: any) => void;
@@ -12,7 +12,6 @@ const FormDetails: React.SFC<FormDetailsProps> = ({
   value,
   handleChange
 }: FormDetailsProps) => {
-
   return (
     <div className="question">
       <input

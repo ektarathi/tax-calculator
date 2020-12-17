@@ -14,6 +14,7 @@ export interface YearlyTaxProps {
   setTakeHomeSalary: Dispatch<any>;
   setLoan: Dispatch<any>;
   setDisplayTable: Dispatch<any>;
+  setError: Dispatch<any>;
   type: string;
 }
 
@@ -25,12 +26,12 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
   setTakeHomeSalary,
   setLoan,
   setDisplayTable,
+  setError,
   type
 }: YearlyTaxProps) => {
   const [loanSelect, setLoanSelect] = React.useState("");
   const [ageChecked, setAgeChecked] = React.useState(false);
   const [taxYear, setTaxYear] = React.useState("2020/21");
-  const [error, setError] = React.useState(false);
 
   const calculateTax = (event: any) => {
     event.preventDefault();
@@ -131,7 +132,6 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
         value={taxYear}
         option1="2020/21"
         option2="2019/20"
-
       />
       <button id="submitTax" className="btn" onClick={calculateTax}>
         Calculate your tax
