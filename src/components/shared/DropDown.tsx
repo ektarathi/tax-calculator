@@ -17,7 +17,7 @@ const DropDown: React.SFC<DropDownProps> = ({
   option2,
 }: DropDownProps) => {
   return (
-    <div className="question">
+    <div className="criteria">
       <label htmlFor={id}>{label}</label>
       <select className={id} value={value} id="taxYear" onChange={onChange}>
         <option value={option1}>{option1}</option>

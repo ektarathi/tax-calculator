@@ -8,7 +8,7 @@ export interface CheckboxProps {
 
 const Checkbox: React.SFC<CheckboxProps> = ({ id, text, onChange, checked }: CheckboxProps) => {
   return (
-    <div className="question">
+    <div className="criteria">
       <label>{text}</label>
       <input
         type="checkbox"

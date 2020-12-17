@@ -8,7 +8,6 @@
     @extend %box-sizing;
 }
 
-.results, 
 .formQuestions { 
     width: 50%;
     padding: 20px;
@@ -16,17 +15,27 @@
 	@extend %box-sizing;
 	border: 1px solid #d9d9d9;
 
+	@media screen and (max-width: 992px) {
+		width: 75%;
+	}
+
+	@media screen and (max-width: 767px) {
+		width: 100%;
+	}
+	
 	h2 {
 		margin: 0;
 	}
 
-	.question {
+	.criteria {
 		margin: 20px 0;
 		clear: both;
+
 		label { 
 			display: block; 
 			width: 50%;
 			float: left;
+			padding: 5px 0;
 		}
 	
 		.form-input { 
@@ -37,6 +46,11 @@
 			height: 20px;
 			float: left;
 			@extend %box-sizing;
+
+			@media screen and (max-width: 992px) {
+				width: 48%;
+    			margin-right: 10px;
+			}
 		}
 		
 		select {
@@ -47,14 +61,8 @@
 		.checkbox {
 			width: 20px;
 			height: 20px;
-			margin-top: 0;
 		}
 	}
-}
-
-.results { 
-    display: none;
-    background: #f1f1f1; 
 }
 
 .btn { 
@@ -62,6 +70,7 @@
 	font-weight: bold;
 	text-align: center;
 	width: 100%; 
+	font-size: 20px;
 	display: inline-block; 
 	cursor: pointer;
 	@include border-radius;

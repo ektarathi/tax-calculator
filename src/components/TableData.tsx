@@ -9,7 +9,6 @@ export interface TableDataProps {
 }
 
 const TableData: React.SFC<TableDataProps> = ({ data }: TableDataProps) => {
-  
   return (
     <>
       <tr>

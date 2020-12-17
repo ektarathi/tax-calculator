@@ -13,7 +13,7 @@ const FormDetails: React.SFC<FormDetailsProps> = ({
   handleChange
 }: FormDetailsProps) => {
   return (
-    <div className="question">
+    <div className="criteria">
       <input
         id="yearlySalary"
         name="yearlySalary"

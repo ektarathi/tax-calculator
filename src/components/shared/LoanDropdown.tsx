@@ -17,7 +17,7 @@ const LoanDropdown: React.SFC<LoanDropdownProps> = ({
   option2,
 }: LoanDropdownProps) => {
   return (
-    <div className="question">
+    <div className="criteria">
       <label htmlFor={id}>{label}</label>
       <select className={id} value={value} id="taxYear" onChange={onChange}>
         <option>Select Loan Plan</option>

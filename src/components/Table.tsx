@@ -44,15 +44,15 @@ const Table: React.SFC<TableProps> = ({salary, taxableIncome, incomeTax, nationa
       <thead>
         <tr>
           <th></th>
-          <th align="center">Yearly</th>
-          <th align="center">Monthly</th>
-          <th align="center">Weekly</th>
+          <th>Yearly</th>
+          <th>Monthly</th>
+          <th>Weekly</th>
         </tr>
       </thead>
       <tbody>
-          {rows.map((row, index) => {
-              return <TableData data={row} key={index}/>
-          })}
+        {rows.map((row, index) => {
+            return <TableData data={row} key={index}/>
+        })}
       </tbody>
     </table>
   );
