@@ -1,4 +1,5 @@
 export const studentLoan = (value: any, option: any, year: any) => {
+    console.log('fetching data:',value, option, year);
     // student loan threshold
     let studentLoanThresh;
     if(option === 'Repayment Plan 1') {
@@ -12,8 +13,8 @@ export const studentLoan = (value: any, option: any, year: any) => {
     } else {
         studentLoanThresh = 0;
     }
-    
-    if(option !== '') {
+
+    if(option !== 'Select Loan Plan' && option !== '') {
         // student loan taxable
         let studentLoanTaxable = value - studentLoanThresh;
         // calculate student loan taken yearly

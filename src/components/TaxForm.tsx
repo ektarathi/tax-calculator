@@ -1,7 +1,6 @@
 import React from "react";
 import TaxDetails from "./TaxDetails";
 import FormDetails from "./FormDetails";
-
 import Table from "./Table";
 export interface FormProps {}
 
