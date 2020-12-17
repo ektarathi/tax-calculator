@@ -44,6 +44,8 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
     } else {
         salary = value
     }
+
+    // Calculating the Tax information
     calculateTaxDetails(salary);
   };
 
@@ -74,7 +76,7 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
   };
 
   const calculateTaxDetails = (value: any) => {
-      // calculating Taxable Salary
+    // calculating Taxable Salary
     let salary = value - 12500;
     setTaxableSalary(salary);
 
@@ -91,7 +93,7 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
     setLoan(stLoan);
 
     if (stLoan !== undefined) {
-      // take home pay yearly
+      // take home pay yearly including student loan
       let takeHomeYear = (value - tax - ni - stLoan).toFixed(2);
       setTakeHomeSalary(takeHomeYear);
     } else {
