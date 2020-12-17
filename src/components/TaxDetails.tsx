@@ -35,8 +35,7 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
   const calculateTax = (event: any) => {
     event.preventDefault();
     // Displaying the error messages
-    //displayErrorMessage();
-    setDisplayTable(true)
+    displayErrorMessage();
     let salary;
 
     if(type === 'monthly') {
@@ -48,23 +47,27 @@ const YearlyTax: React.SFC<YearlyTaxProps> = ({
   };
 
   const displayErrorMessage = () => {
-    if (value < 12500) {
-      setDisplayTable(false);
-      setError(true);
-    } else {
+    if(type === 'monthly') {
       setDisplayTable(true);
-    }
-
-    if (loanSelect === "Repayment Plan 2") {
-      if (value < 26575 && taxYear === "2020/21") {
-        setDisplayTable(false);
-        setError(true);
-      } else if (value < 25725 && taxYear === "2019/20") {
+    } else {
+      if (value < 12500) {
         setDisplayTable(false);
         setError(true);
       } else {
         setDisplayTable(true);
-        setError(false);
+      }
+  
+      if (loanSelect === "Repayment Plan 2") {
+        if (value < 26575 && taxYear === "2020/21") {
+          setDisplayTable(false);
+          setError(true);
+        } else if (value < 25725 && taxYear === "2019/20") {
+          setDisplayTable(false);
+          setError(true);
+        } else {
+          setDisplayTable(true);
+          setError(false);
+        }
       }
     }
   };

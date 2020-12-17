@@ -1,5 +1,4 @@
 export const studentLoan = (value: any, option: any, year: any) => {
-    console.log(option, year);
     // student loan threshold
     let studentLoanThresh;
     if(option === 'Repayment Plan 1') {
